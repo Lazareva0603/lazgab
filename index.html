@@ -1,0 +1,42 @@
+</head>
+
+    <body>
+        <body style="background-color: rgb(255, 106, 0)">
+       
+        <div class="main">
+        <p></p><font color="black" size="20">Группа АДБ-21-06</font></p>
+        <p></p><font color="black" size="20">Описание</font></p>
+
+        <p></p><font color="pink" size="10">Лазарева Ксения - любит котиков.</font></p>
+        <p></p><font color="pink" size="10">Габдулина Камилла - любит собак.</font></p>
+        
+        <p><img src="котики.jpeg" ></p>
+            <h2>JavaScript Confirm Box</h2>
+            <button class="btn" onclick="myFunction()">Try it</button>
+            <ul id="demo">
+
+            </ul>
+        </div>
+        <script>
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            function myFunction() {
+                (async () => {
+                    let response = await fetch('https://kav-api.kovalev.team/servodrive/lastActualData?servoDriveId=1');
+                    let el = document.getElementById('demo')
+                    el.innerHTML = ""
+                    let text = await response.text(); // прочитать тело ответа как текст
+                    for (const [key, value] of Object.entries(JSON.parse(text)[0])) {
+                        const newEl = document.createElement("li")
+                        newEl.appendChild(document.createTextNode(`${key}: ${value}`))
+                        el.appendChild(newEl)
+                        await sleep(100)
+                    }
+                })()
+            }
+        </script>
+
+    </body>
+
+</html>
